@@ -181,3 +181,86 @@ func TestTreeAddRight(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, four, three.GetLeft())
 }
+
+func TestTreeContains(t *testing.T) {
+	/*
+
+				 5        Level 0
+			   /   \
+			  3     8     Level 1
+			 / \   / \
+			1   4 6   9   Level 2
+		   / \
+		      2           Level 3
+
+	*/
+	one := NewNode(1)
+	two := NewNode(2)
+	three := NewNode(3)
+	four := NewNode(4)
+	five := NewNode(5)
+	six := NewNode(6)
+	eight := NewNode(8)
+	nine := NewNode(9)
+
+	tree, err := NewTree(
+		five,
+		three, one, four,
+		two,
+		eight,
+		six, nine,
+	)
+
+	assert.Nil(t, err)
+	assert.Equal(t, true, tree.Contains(2))
+}
+
+func TestBFSearch(t *testing.T) {
+	/*
+
+				 5        Level 0
+			   /   \
+			  3     8     Level 1
+			 / \   / \
+			1   4 6   9   Level 2
+		   / \
+		      2           Level 3
+
+	*/
+	one := NewNode(1)
+	two := NewNode(2)
+	three := NewNode(3)
+	four := NewNode(4)
+	five := NewNode(5)
+	six := NewNode(6)
+	eight := NewNode(8)
+	nine := NewNode(9)
+
+	tree, err := NewTree(
+		five,
+		three, one, four,
+		two,
+		eight,
+		six, nine,
+	)
+
+	assert.Nil(t, err)
+	// Level 0
+	assert.Equal(t, five, BFSearch(tree.Root, 5))
+
+	// Level 1
+	assert.Equal(t, three, BFSearch(tree.Root, 3))
+	assert.Equal(t, eight, BFSearch(tree.Root, 8))
+
+	// Level 2
+	assert.Equal(t, one, BFSearch(tree.Root, 1))
+	assert.Equal(t, four, BFSearch(tree.Root, 4))
+	assert.Equal(t, six, BFSearch(tree.Root, 6))
+	assert.Equal(t, nine, BFSearch(tree.Root, 9))
+
+	// Level 3
+	assert.Equal(t, two, BFSearch(tree.Root, 2))
+
+	// Node not found in the tree
+	assert.Nil(t, BFSearch(tree.Root, 10))
+}

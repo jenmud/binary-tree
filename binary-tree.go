@@ -85,6 +85,73 @@ func (n *Node) SetRight(node NodeComponent) {
 	n.right = node
 }
 
+// bfwalk does a breadth first walk of the node tree populating the
+// seen slice with nodes found in order right to left leaf nodes. `max`
+// is how many levels deep to go. `level` is the current level and should
+// be 0 to start with.
+func bfwalk(node NodeComponent, max, level int, seen *[]NodeComponent) {
+	if level < max {
+		level++
+
+		if node.GetRight() != nil {
+			*seen = append(*seen, node.GetRight())
+		}
+
+		if node.GetLeft() != nil {
+			*seen = append(*seen, node.GetLeft())
+		}
+
+		if node.GetRight() != nil {
+			bfwalk(node.GetRight(), max, level, seen)
+		}
+
+		if node.GetLeft() != nil {
+			bfwalk(node.GetLeft(), max, level, seen)
+		}
+	}
+}
+
+// BFSearch is a breadth first search for node containing `value`
+func BFSearch(root NodeComponent, value int64) NodeComponent {
+	/*
+
+				tree
+				----
+				  5         <-- level 0
+				/   \
+			  3      8      <-- level 1
+			 / \    /  \
+		   1    4  6    9   <-- level 2
+		  / \
+			 2              <-- level 3
+
+	*/
+	// Level 0
+	if root != nil && root.GetValue() == value {
+		return root
+	}
+
+	level := 1
+	for {
+		seen := []NodeComponent{}
+		bfwalk(root, level, 0, &seen)
+
+		for _, item := range seen {
+			if item.GetValue() == value {
+				return item
+			}
+
+			// This is necessary so that we do not loop forever when
+			// we have already iterated over all the nodes in the tree.
+			if level >= len(seen) {
+				return nil
+			}
+
+		}
+		level++
+	}
+}
+
 // Tree represents a binary tree of nodes.
 type Tree struct {
 	Root NodeComponent
@@ -118,6 +185,11 @@ func (t *Tree) Add(node NodeComponent) error {
 		n = nil
 	}
 	return nil
+}
+
+// Contains returns true if a node with `value` is found in the tree.
+func (t Tree) Contains(value int64) bool {
+	return BFSearch(t.Root, value) != nil
 }
 
 // NewTree returns a new tree populated with one or
