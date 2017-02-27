@@ -111,6 +111,14 @@ func bfwalk(node NodeComponent, max, level int, seen *[]NodeComponent) {
 	}
 }
 
+// BFFlatten flatten the tree using breadth first algorithm.
+func BFFlatten(tree Tree, max int) []NodeComponent {
+	root := tree.Root
+	nodes := []NodeComponent{root}
+	bfwalk(root, max, 0, &nodes)
+	return nodes
+}
+
 // BFSearch is a breadth first search for node containing `value`
 func BFSearch(root NodeComponent, value int64) NodeComponent {
 	/*
