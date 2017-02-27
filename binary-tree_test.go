@@ -10,17 +10,16 @@ import (
 // makeTree returns a binary tree and all the nodes in
 // the order as they where inserted into the tree.
 func makeTree() (*Tree, map[uint64]NodeComponent) {
-	/*
+	// tree
+	// ----
+	//       5          <-- level 0
+	//     /   \
+	//    3      8      <-- level 1
+	//   / \    /  \
+	//  1   4  6    9   <-- level 2
+	// / \
+	//    2             <-- level 3
 
-	         5        Level 0
-	       /   \
-	      3     8     Level 1
-	     / \   / \
-	    1   4 6   9   Level 2
-	   / \
-	      2           Level 3
-
-	*/
 	nodes := make(map[uint64]NodeComponent)
 
 	one := NewNode(1)
@@ -87,15 +86,15 @@ func TestNewBinaryTree(t *testing.T) {
 }
 
 func TestNewBinaryTreePassingNodes(t *testing.T) {
-	/*
-	       5
-	      /
-	     3
-	    / \
-	   1   4
-	    \
-	      2
-	*/
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /
+	//    3            <-- level 1
+	//   / \
+	//  1   4          <-- level 2
+	// / \
+	//    2            <-- level 3
 	five := NewNode(5)
 	three := NewNode(3)
 	one := NewNode(1)
@@ -114,28 +113,27 @@ func TestTreeAddRight(t *testing.T) {
 	five := NewNode(5)
 	tree, err := NewTree(five)
 
-	/*
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /
+	//    3            <-- level 1
+	//   / \
 
-	     5
-	    / \
-	   3
-
-	*/
 	three := NewNode(3)
 	err = tree.Add(three)
 	assert.Nil(t, err)
 	assert.Nil(t, tree.Root.GetLeft())
 	assert.Equal(t, three, tree.Root.GetRight())
 
-	/*
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /
+	//    3            <-- level 1
+	//   / \
+	//  1              <-- level 2
 
-	       5
-	      / \
-	     3
-	    / \
-	   1
-
-	*/
 	one := NewNode(1)
 	err = tree.Add(one)
 	assert.Nil(t, err)
@@ -143,17 +141,16 @@ func TestTreeAddRight(t *testing.T) {
 	assert.Equal(t, three, tree.Root.GetRight())
 	assert.Equal(t, one, three.GetRight())
 
-	/*
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /
+	//    3            <-- level 1
+	//   / \
+	//  1              <-- level 2
+	// / \
+	//    2            <-- level 3
 
-	        5
-	       / \
-	      3
-	     / \
-	    1
-	   / \
-	      2
-
-	*/
 	two := NewNode(2)
 	err = tree.Add(two)
 	assert.Nil(t, err)
@@ -163,50 +160,47 @@ func TestTreeAddRight(t *testing.T) {
 	assert.Nil(t, one.GetRight())
 	assert.Equal(t, two, one.GetLeft())
 
-	/*
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /  \
+	//    3    8       <-- level 1
+	//   / \  / \
+	//  1              <-- level 2
+	// / \
+	//    2            <-- level 3
 
-	        5
-	       / \
-	      3   8
-	     / \
-	    1
-	   / \
-	      2
-
-	*/
 	eight := NewNode(8)
 	err = tree.Add(eight)
 	assert.Nil(t, err)
 	assert.Equal(t, eight, tree.Root.GetLeft())
 
-	/*
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /   \
+	//    3     8      <-- level 1
+	//   / \   / \
+	//  1     6        <-- level 2
+	// / \
+	//    2            <-- level 3
 
-	         5
-	       /   \
-	      3     8
-	     / \   / \
-	    1     6
-	   / \
-	      2
-
-	*/
 	six := NewNode(6)
 	err = tree.Add(six)
 	assert.Nil(t, err)
 	assert.Equal(t, eight, tree.Root.GetLeft())
 	assert.Equal(t, six, eight.GetRight())
 
-	/*
+	// tree
+	// ----
+	//       5         <-- level 0
+	//     /   \
+	//    3     8      <-- level 1
+	//   / \   / \
+	//  1     6   9    <-- level 2
+	// / \
+	//    2            <-- level 3
 
-	         5
-	       /   \
-	      3     8
-	     / \   / \
-	    1     6   9
-	   / \
-	      2
-
-	*/
 	nine := NewNode(9)
 	err = tree.Add(nine)
 	assert.Nil(t, err)
@@ -214,17 +208,16 @@ func TestTreeAddRight(t *testing.T) {
 	assert.Equal(t, six, eight.GetRight())
 	assert.Equal(t, nine, eight.GetLeft())
 
-	/*
+	// tree
+	// ----
+	//       5          <-- level 0
+	//     /   \
+	//    3      8      <-- level 1
+	//   / \    / \
+	//  1   4  6   9    <-- level 2
+	// / \
+	//    2             <-- level 3
 
-	         5
-	       /   \
-	      3     8
-	     / \   / \
-	    1   4 6   9
-	   / \
-	      2
-
-	*/
 	four := NewNode(4)
 	err = tree.Add(four)
 	assert.Nil(t, err)
@@ -260,13 +253,15 @@ func TestBFSearch(t *testing.T) {
 }
 
 func TestBFFlatten(t *testing.T) {
-	/*
-	       5       level 0
-	      / \
-	     3         level 1
-	    / \
-	   1           level 2
-	*/
+	// tree
+	// ----
+	//       5          <-- level 0
+	//     /   \
+	//    3             <-- level 1
+	//   / \
+	//  1               <-- level 2
+	//
+
 	one := NewNode(1)
 	three := NewNode(3)
 	five := NewNode(5)
@@ -278,15 +273,16 @@ func TestBFFlatten(t *testing.T) {
 	// See tree layout above.
 	tree, nodes := makeTree()
 
-	/*
-	         5        Level 0
-	       /   \
-	      3     8     Level 1
-	     / \   / \
-	    1   4 6   9   Level 2
-	   / \
-	      2           Level 3
-	*/
+	// tree
+	// ----
+	//       5          <-- level 0
+	//     /   \
+	//    3      8      <-- level 1
+	//   / \    / \
+	//  1   4  6   9    <-- level 2
+	// / \
+	//    2             <-- level 3
+
 	expected := []NodeComponent{
 		nodes[5],
 		nodes[3], nodes[8],
