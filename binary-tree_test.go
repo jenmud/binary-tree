@@ -12,13 +12,13 @@ import (
 func makeTree() (*Tree, map[uint64]NodeComponent) {
 	/*
 
-				 5        Level 0
-			   /   \
-			  3     8     Level 1
-			 / \   / \
-			1   4 6   9   Level 2
-		   / \
-		      2           Level 3
+	         5        Level 0
+	       /   \
+	      3     8     Level 1
+	     / \   / \
+	    1   4 6   9   Level 2
+	   / \
+	      2           Level 3
 
 	*/
 	nodes := make(map[uint64]NodeComponent)
@@ -88,13 +88,13 @@ func TestNewBinaryTree(t *testing.T) {
 
 func TestNewBinaryTreePassingNodes(t *testing.T) {
 	/*
-			  5
-			/
-		  3
-		 / \
-		1   4
-		 \
-		  2
+	       5
+	      /
+	     3
+	    / \
+	   1   4
+	    \
+	      2
 	*/
 	five := NewNode(5)
 	three := NewNode(3)
@@ -116,9 +116,9 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-			5
-		   / \
-		  3
+	     5
+	    / \
+	   3
 
 	*/
 	three := NewNode(3)
@@ -129,11 +129,11 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-			5
-		   / \
-		  3
-		 / \
-		1
+	       5
+	      / \
+	     3
+	    / \
+	   1
 
 	*/
 	one := NewNode(1)
@@ -145,13 +145,13 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-				5
-			   / \
-			  3
-			 / \
-			1
-		   / \
-		      2
+	        5
+	       / \
+	      3
+	     / \
+	    1
+	   / \
+	      2
 
 	*/
 	two := NewNode(2)
@@ -165,13 +165,13 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-				5
-			   / \
-			  3   8
-			 / \
-			1
-		   / \
-		      2
+	        5
+	       / \
+	      3   8
+	     / \
+	    1
+	   / \
+	      2
 
 	*/
 	eight := NewNode(8)
@@ -181,13 +181,13 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-				 5
-			   /   \
-			  3     8
-			 / \   / \
-			1     6
-		   / \
-		      2
+	         5
+	       /   \
+	      3     8
+	     / \   / \
+	    1     6
+	   / \
+	      2
 
 	*/
 	six := NewNode(6)
@@ -198,13 +198,13 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-				 5
-			   /   \
-			  3     8
-			 / \   / \
-			1     6   9
-		   / \
-		      2
+	         5
+	       /   \
+	      3     8
+	     / \   / \
+	    1     6   9
+	   / \
+	      2
 
 	*/
 	nine := NewNode(9)
@@ -216,13 +216,13 @@ func TestTreeAddRight(t *testing.T) {
 
 	/*
 
-				 5
-			   /   \
-			  3     8
-			 / \   / \
-			1   4 6   9
-		   / \
-		      2
+	         5
+	       /   \
+	      3     8
+	     / \   / \
+	    1   4 6   9
+	   / \
+	      2
 
 	*/
 	four := NewNode(4)
@@ -261,11 +261,11 @@ func TestBFSearch(t *testing.T) {
 
 func TestBFFlatten(t *testing.T) {
 	/*
-				5		level 0
-			   / \
-			  3			level 1
-		     / \
-			1		    level 2
+	       5       level 0
+	      / \
+	     3         level 1
+	    / \
+	   1           level 2
 	*/
 	one := NewNode(1)
 	three := NewNode(3)
@@ -279,13 +279,13 @@ func TestBFFlatten(t *testing.T) {
 	tree, nodes := makeTree()
 
 	/*
-		  	  5        Level 0
-			/   \
-		   3     8     Level 1
-		  / \   / \
-		 1   4 6   9   Level 2
-		/ \
-			2          Level 3
+	         5        Level 0
+	       /   \
+	      3     8     Level 1
+	     / \   / \
+	    1   4 6   9   Level 2
+	   / \
+	      2           Level 3
 	*/
 	expected := []NodeComponent{
 		nodes[5],
