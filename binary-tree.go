@@ -123,15 +123,15 @@ func BFFlatten(tree Tree, max int) []NodeComponent {
 func BFSearch(root NodeComponent, value int64) NodeComponent {
 	/*
 
-						tree
-						----
-		                  5           <-- level 0
-		                /   \
-		               3      8       <-- level 1
-		              / \    /  \
-				     1    4  6    9   <-- level 2
-		            / \
-		               2              <-- level 3
+			tree
+			----
+				 5           <-- level 0
+			   /    \
+			  3       8      <-- level 1
+			 / \     /  \
+			1    4  6    9   <-- level 2
+		   / \
+			  2              <-- level 3
 
 	*/
 	// Level 0
